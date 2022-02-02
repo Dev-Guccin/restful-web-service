@@ -1,4 +1,4 @@
-package com.example.restfulwebservice;
+package com.example.restfulwebservice.helloworld;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,9 +23,4 @@ public class HelloWorldController {
     public HelloWorldBean helloWorldBean(@PathVariable String name){
         return new HelloWorldBean(String.format("Hello World, %s",name)); // 객체 반환의 경우 JSON으로 바꿔서 리턴한다.
     }
-
-
-
-
-
 }
