@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> createUser(@RequestBody User user){ // 도메인으로 지정한 엔티티값을 반환가능하다.
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user){ // 도메인으로 지정한 엔티티값을 반환가능하다.
         User savedUser = service.save(user);
 
         // 사용자가 요청한 값을 확인할 수 있는 uri를 반환한다.
