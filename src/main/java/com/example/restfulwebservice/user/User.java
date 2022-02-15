@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
@@ -13,6 +14,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 //@JsonIgnoreProperties(value = {"password"}) // 필드를 외부로 노출시키지 않는다.
+@NoArgsConstructor
 @JsonFilter("UserInfo")
 public class User {
     private Integer id;
