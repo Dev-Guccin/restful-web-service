@@ -1,5 +1,7 @@
 package com.example.restfulwebservice.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -9,6 +11,7 @@ import java.util.Date;
 
 @Data
 @AllArgsConstructor
+@JsonIgnoreProperties(value = {"password", "ssn"}) // 필드를 외부로 노출시키지 않는다.
 public class User {
     private Integer id;
 
@@ -18,4 +21,8 @@ public class User {
     @Past
     private Date joinDate;
 
+//    @JsonIgnore // 전달할때 무시하고 전달한다. 즉, 노출되지 않는다.
+    private String password;
+//    @JsonIgnore
+    private String ssn;
 }
