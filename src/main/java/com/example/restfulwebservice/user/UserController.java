@@ -45,4 +45,13 @@ public class UserController {
         // 좋은 api는 적절한 상태의 http status를 반환해주는게 좋은 api이다.
         // 모든 요청을 POST 혹은 200으로만 준다면 좋지 못한 api이다.
     }
+
+    @DeleteMapping("/users/{id}")
+    public void deleteUser(@PathVariable int id){
+        User user = service.deleteById(id);
+
+        if(user == null){
+            throw new UserNotFoundException(String.format("ID[%s] not found", id));
+        }
+    }
 }

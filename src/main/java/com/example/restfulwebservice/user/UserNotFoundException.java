@@ -12,6 +12,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException(String message) {
-        super(message);
+        super(message);// 부모 생성자가 실행된다. // RuntimeException의 생성자 호출
     }
 }
