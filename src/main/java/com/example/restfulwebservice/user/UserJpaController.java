@@ -20,6 +20,8 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class UserJpaController{
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PostRepository postRepository;
 
     // http://localhost:8088/jpa/users
     @GetMapping("/users")
@@ -57,6 +59,35 @@ public class UserJpaController{
         System.out.println(location);
         System.out.println(ResponseEntity.created(location));
 
+        return ResponseEntity.created(location).build();
+    }
+
+    // /jpa/users/1000/posts
+    @GetMapping("/users/{id}/posts")
+    public List<Post> retrieveAllPostsByUser(@PathVariable int id){
+        Optional<User> user = userRepository.findById(id);
+        if(!user.isPresent()){
+            throw new UserNotFoundException(String.format("ID[%s] not found", id));
+        }
+        return user.get().getPosts();
+    }
+
+    @PostMapping("/users/{id}/posts")
+    public ResponseEntity<Post> createPost(@PathVariable int id, @RequestBody Post post){
+        // 사용자 정보를 검색해서 해당 아이디를 가져와야한다.
+        Optional<User> user = userRepository.findById(id);
+        if(!user.isPresent()){
+            throw new UserNotFoundException(String.format("ID[%s] not found", id));
+        }
+        post.setUser(user.get());
+        Post savedPost = postRepository.save(post);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(savedPost.getId())
+                .toUri();
+        System.out.println(location);
+        System.out.println(ResponseEntity.created(location));
         return ResponseEntity.created(location).build();
     }
 }
